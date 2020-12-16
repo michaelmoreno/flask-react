@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 export default function DogAdder({ callback, api }) {
   const [ name, setName ] = useState('')
@@ -11,13 +11,13 @@ export default function DogAdder({ callback, api }) {
   }
 
   const onOwnerChange = (event) => {
-    const newBreed = event.target.value;
-    setName(newOwner);
+    const newOwner = event.target.value;
+    setOwner(newOwner);
   }
 
   const onBreedChange = (event) => {
     const newBreed = event.target.value;
-    setName(newBreed);
+    setBreed(newBreed);
   };
 
   const onDogAdded = () => {
@@ -28,15 +28,15 @@ export default function DogAdder({ callback, api }) {
     <div id="dogadder">
         <div className="fields">
             <div className="field">
-                <div className="label"></div>
+                <div className="label">Name:</div>
                 <input type="text" value={name} onChange={onNameChange} />
             </div>
             <div className="field">
-                <div className="label"></div>
+                <div className="label">Owner:</div>
                 <input type="text" value={owner} onChange={onOwnerChange} />
             </div>
             <div className="field">
-                <div className="label"></div>
+                <div className="label">Breed:</div>
                 <input type="text" value={breed} onChange={onBreedChange} />
             </div>
         </div>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import DataLayer from './DataLayer';
-import Dog from './components/Dog';
-import DogAdder from './components/DogAdder';
+import Dog from './Dog';
+import DogAdder from './DogAdder';
 
 const dataLayer = new DataLayer("localhost", 3000);
 
@@ -10,18 +10,23 @@ function App() {
 
   const dogElements = [];
 
+  const onDogsChanged = () => {
+    dataLayer.all().then(r => setDogs(r.data));
+  }
+
   if (dogs == null) {
-    dataLayer.all().then(setDogs);
+    onDogsChanged();
   } else {
     for (let dog of dogs) {
-      const dogElement = <Dog {...dog} />;
+      const dogElement = <Dog data={dog} callback={onDogsChanged} api={dataLayer} />;
       dogElements.push(dogElement); 
     }
   }
   
+  
   return (
     <div className="App">
-      <DogEditor callback={() => dataLayer.all().then(setDogs))} />
+      <DogAdder api={dataLayer} callback={() => dataLayer.all().then(r => setDogs(r.data))} />
       <div id="dogs">
         {dogElements}
       </div>
