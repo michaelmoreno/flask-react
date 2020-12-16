@@ -25,7 +25,7 @@ export default function DogAdder({ callback, api }) {
   }
   
   return (
-    <div id="dogadder">
+    <div id="dog-adder">
         <div className="fields">
             <div className="field">
                 <div className="label">Name:</div>

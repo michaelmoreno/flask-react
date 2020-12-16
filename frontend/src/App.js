@@ -26,7 +26,9 @@ function App() {
   
   return (
     <div className="App">
+      <h1>Add Dog</h1>
       <DogAdder api={dataLayer} callback={() => dataLayer.all().then(r => setDogs(r.data))} />
+      <h1>Your Dogs</h1>
       <div id="dogs">
         {dogElements}
       </div>
