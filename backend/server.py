@@ -9,6 +9,8 @@ DEBUG = True
 PORT = 3000
 
 app = Flask(__name__)
+CORS(app)
+
 
 @app.before_request
 def before_requestcd():
@@ -26,7 +28,7 @@ def get_all_dogs():
   try:
     dogs = [model_to_dict(dog) for dog in models.Dog.select()]
     return jsonify(data=dogs, status={"code": 200, "message": "Success"})
-  except models.DoesNotExist:
+  except models.Dog.DoesNotExist:
     return jsonify(data={}, status={
       "code": 401,
       "message": "Error getting the resources"
@@ -43,22 +45,23 @@ def create_dogs():
 @app.route('/delete', methods=['POST'])
 def delete_dog():
   payload = request.get_json()
-  dog = models.Dog.get(Dog.id == payload.id)
+  dog = models.Dog.get(models.Dog.id == payload.id)
   dog.delete_instance()
+  return jsonify(data=dict(id=payload.id), status={"code": 201, "message": "Success"})
 
 @app.route('/update', methods=['POST'])
 def update_dog():
   payload = request.get_json()
-  dog = models.Dog.get(Dog.id == payload.id)
+  dog = models.Dog.get(models.Dog.id == payload.id)
   dog.name = payload.name
   dog.owner = payload.owner
   dog.breed = payload.breed
   dog.save()
+  return jsonify(data=model_to_dict(**dog), status={"code": 201, "message": "Success"})
 
+  
 # Initalize App
 if __name__ == '__main__':
-  CORS(app)
-  CORS(dog)
   app.register_blueprint(dog, url_prefix='/api/v1/dogs')
   models.initialize()
   app.run(debug=DEBUG, port=PORT)
