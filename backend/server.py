@@ -11,7 +11,7 @@ PORT = 3000
 app = Flask(__name__)
 
 @app.before_request
-def before_request():
+def before_requestcd():
   g.db = models.DATABASE
   g.db.connect()
 
@@ -20,17 +20,13 @@ def before_request(response):
   g.db.close()
   return response
 
-@app.route('/')
-def index():
-  return 'h1'
-
 # Get all the dogs
 @dog.route('/', methods=["GET"])
 def get_all_dogs():
   try:
     dogs = [model_to_dict(dog) for dog in models.Dog.select()]
     return jsonify(data=dogs, status={"code": 200, "message": "Success"})
-  except models.DoesNOtExist:
+  except models.DoesNotExist:
     return jsonify(data={}, status={
       "code": 401,
       "message": "Error getting the resources"
