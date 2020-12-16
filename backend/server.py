@@ -58,7 +58,7 @@ def update_dog():
 # Initalize App
 if __name__ == '__main__':
   CORS(app)
-  CORS(dogs)
+  CORS(dog)
   app.register_blueprint(dog, url_prefix='/api/v1/dogs')
   models.initialize()
   app.run(debug=DEBUG, port=PORT)
