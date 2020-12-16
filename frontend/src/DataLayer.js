@@ -19,7 +19,7 @@ export default class DataLayer {
   }
 
   async add(name, owner, breed) {
-    return this.apiFetch('api/v1/dogs/add/', {
+    return this.apiFetch('api/v1/dogs/add', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -29,7 +29,7 @@ export default class DataLayer {
   }
 
   async delete(id) {
-    return this.apiFetch('api/v1/dogs/delete/', {
+    return this.apiFetch('api/v1/dogs/delete', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -40,7 +40,7 @@ export default class DataLayer {
 
 
   async update(id, name, owner, breed) {
-    return this.apiFetch('api/v1/dogs/update/', {
+    return this.apiFetch('api/v1/dogs/update', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
